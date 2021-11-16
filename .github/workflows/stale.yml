@@ -1,0 +1,44 @@
+name: Stale workflow
+
+on:
+  workflow_call:
+    inputs:
+      days-before-issue-stale:
+        type: number
+        default: 30
+        required: false
+      days-before-issue-close:
+        type: number
+        default: 5
+        required: false
+    secrets:
+      token:
+        description: 'The GitHub Token which is used for the action bot'
+        required: false
+
+jobs:
+  stale:
+    name: Stale Bot
+
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/stale@v8
+        with:
+          repo-token: ${{ secrets.token }}
+          stale-issue-label: 'stale'
+          stale-pr-label: 'stale'
+          exempt-issue-labels: pinned,security,long running,discussion,vision
+          exempt-pr-labels: 'awaiting-approval,work-in-progress,pinned'
+          stale-issue-message: 'This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.'
+          stale-pr-message: 'This pull request has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.'
+          close-issue-message: 'This issue has been closed as no further activity has occurred.'
+          close-pr-message: 'This pull request has been automatically closed because it has not had recent activity. Thank you for your contributions.'
+          days-before-issue-stale: ${{ inputs.days-before-issue-stale }}
+          days-before-issue-close: ${{ inputs.days-before-issue-close }}
+          days-before-stale: 15
+          days-before-close: 2
+          remove-stale-when-updated: true
