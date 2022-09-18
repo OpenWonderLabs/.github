@@ -2,6 +2,13 @@ name: 🚀 Feature Request
 description: Suggest an improvement or a new feature for this project.
 
 labels: ["enhancement"]
+assignees:
+  - donavanbecker
+  - SwitchBot
+  - SwitchBot-Wonderlabs
+  - Minsheng
+  - Devin-Wonderlabs
+  - chenliuyun
 
 body:
   - type: markdown
