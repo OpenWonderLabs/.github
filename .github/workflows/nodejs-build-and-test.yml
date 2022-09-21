@@ -40,26 +40,3 @@ jobs:
         run: npm run build --if-present
         env:
           CI: true
-
-      - name: Coveralls Parallel
-        if: ${{ inputs.enable_coverage }}
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.github_token }}
-          flag-name: run-${{ matrix.node_version }}
-          parallel: true
-
-  # Finish up the coverage reporting to Coveralls after all matrix steps of the build jobs have run
-  collect_coverage_reports:
-    if: ${{ inputs.enable_coverage }}
-
-    needs: build
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Coveralls Finished
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.token }}
-          parallel-finished: true
