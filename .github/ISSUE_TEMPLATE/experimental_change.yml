@@ -2,6 +2,13 @@ name: 🔬 Experimental Change
 description: Suggest an experimental or visionary improvement for this project.
 
 labels: ["vision", "enhancement"]
+assignees:
+  - donavanbecker
+  - SwitchBot
+  - SwitchBot-Wonderlabs
+  - Minsheng
+  - Devin-Wonderlabs
+  - chenliuyun
 
 body:
   - type: markdown
