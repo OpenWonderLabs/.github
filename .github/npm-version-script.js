@@ -4,12 +4,8 @@
  * This scripts queries the npm registry to pull out the latest version for a given tag.
  */
 
-// TODO process arguments
-//  -tag
-//  -ref
-
 const fs = require("fs");
-// const semver = require("semver"); // TODO this has to be installed!
+const semver = require("semver");
 const child_process = require("child_process");
 const assert = require("assert");
 
@@ -19,7 +15,7 @@ const BRANCH_VERSION_PATTERN = /^([A-Za-z]*)-(\d+.\d+.\d+)$/
 const packageJSON = JSON.parse(fs.readFileSync("package.json", "utf8"));
 
 let refArgument = process.argv[2];
-let tagArgument = process.argv[3] ?? "latest";
+let tagArgument = process.argv[3] || "latest";
 
 if (refArgument == null) {
   console.error("ref argument is missing");
@@ -41,8 +37,7 @@ function getTagVersionFromNpm(tag) {
 }
 
 function desiredTargetVersion(ref) {
-  // ref is a GitHub action ref string TODO docs
-
+  // ref is a GitHub action ref string
   if (ref.startsWith("refs/pull/")) {
     throw Error("The version script was executed inside a PR!");
   }
@@ -72,7 +67,7 @@ const baseVersion = desiredTargetVersion(refArgument);
 
 // query the npm registry for the latest version of the provided tag name
 const latestReleasedVersion = getTagVersionFromNpm(tagArgument); // e.g. 0.7.0-beta.12
-const latestReleaseBase = semver.inc(latestReleaseBeta, "patch"); // will produce 0.7.0 (removing the preid, needed for the equality check below)
+const latestReleaseBase = semver.inc(latestReleasedVersion, "patch"); // will produce 0.7.0 (removing the preid, needed for the equality check below)
 
 let publishTag;
 if (semver.eq(baseVersion, latestReleaseBase)) { // check if we are releasing another version for the latest beta
