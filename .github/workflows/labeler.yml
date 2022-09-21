@@ -7,9 +7,15 @@
 
 name: Labeler
 on: [pull_request]
-
+  workflow_call:
+    secrets:
+          token:
+            description: 'The GitHub Token which is used for the action bot'
+            required: false
 jobs:
   label:
+    name: Labeler
+
     runs-on: ubuntu-latest
 
     steps:

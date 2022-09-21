@@ -48,7 +48,7 @@ jobs:
 
       - name: Fetch Adjust version script
         if: ${{ inputs.dynamically_adjust_version }}
-        run: wget https://raw.githubusercontent.com/homebridge/.github/main/.github/npm-version-script.js
+        run: wget https://raw.githubusercontent.com/OpenWonderLabs/.github/main/.github/npm-version-script.js
         working-directory: .github
 
       - name: Adjust version
