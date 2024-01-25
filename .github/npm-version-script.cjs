@@ -19,7 +19,7 @@ let tagArgument = process.argv[3] || "latest";
 
 if (refArgument == null) {
   console.error("ref argument is missing");
-  console.error("Usage: npm-version-script.js <ref> [tag]");
+  console.error("Usage: npm-version-script.cjs <ref> [tag]");
   process.exit(1);
 }
 
